@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.http import Http404
 from rest_framework import status, generics
 from rest_framework.decorators import api_view
@@ -8,6 +9,8 @@ from .models import Snippet
 from .permissions import IsOwnerOrReadOnly
 from .serializers import SnippetSerializer, UserSerializer
 from rest_framework import permissions
+
+# from authentication.models import User
 
 
 # class SnippetDetail(APIView):
@@ -72,14 +75,15 @@ class SnippetDetail(generics.RetrieveUpdateDestroyAPIView):
                           IsOwnerOrReadOnly]
 
 
-from django.contrib.auth.models import User
-
-
 class UserList(generics.ListAPIView):
+    from django.contrib.auth import get_user_model
+    User = get_user_model()
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
 
 class UserDetail(generics.RetrieveAPIView):
+    from django.contrib.auth import get_user_model
+    User = get_user_model()
     queryset = User.objects.all()
     serializer_class = UserSerializer

@@ -12,14 +12,14 @@ from django.db import models
 #     capital_population = models.IntegerField()
 #     author = models.ForeignKey(User, on_delete=models.CASCADE)
 
-class Order(models.Model):
-    ticker = models.CharField(max_length=10)
-    start_price = models.IntegerField()
-    quantity_usdt = models.IntegerField()
-    # alias = models.CharField(max_length=60)
-
-    def __str__(self):
-        return self.ticker
+# class Order(models.Model):
+#     ticker = models.CharField(max_length=10)
+#     start_price = models.IntegerField()
+#     quantity_usdt = models.IntegerField()
+#     # alias = models.CharField(max_length=60)
+#
+#     def __str__(self):
+#         return self.ticker
 
 
 # class Profile(models.Model):
@@ -46,8 +46,8 @@ STYLE_CHOICES = sorted([(item, item) for item in get_all_styles()])
 
 
 class Snippet(models.Model):
-    owner = models.ForeignKey('auth.User', related_name='snippets', on_delete=models.CASCADE)
-    highlighted = models.TextField()
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='snippets', on_delete=models.CASCADE, null=True)
+    # highlighted = models.TextField(default='')
     created = models.DateTimeField(auto_now_add=True)
     title = models.CharField(max_length=100, blank=True, default='')
     code = models.TextField()
