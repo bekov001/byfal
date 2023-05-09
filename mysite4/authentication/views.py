@@ -21,11 +21,10 @@ class RegisterView(CreateAPIView):
     #     pass
 
 
-
 class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer
 
-#
+
 @api_view(["GET"])
 def get_users(request):
     from django.contrib.auth import get_user_model

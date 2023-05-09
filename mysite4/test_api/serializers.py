@@ -1,8 +1,7 @@
 # capitals/serializers.py
 from rest_framework import serializers
 
-from .models import Snippet, LANGUAGE_CHOICES, STYLE_CHOICES
-
+from .models import Snippet, LANGUAGE_CHOICES, STYLE_CHOICES, Order
 
 #
 # class OrderSerializer(serializers.HyperlinkedModelSerializer):
@@ -22,10 +21,16 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class SnippetSerializer(serializers.ModelSerializer):
-
-
     class Meta:
         model = Snippet
         owner = serializers.ReadOnlyField(source='owner.username')
 
         fields = ['id', 'title', 'code', 'linenos', 'language', 'style']
+
+
+class OrderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Order
+        owner = serializers.ReadOnlyField(source='owner.username')
+
+        fields = ['id', 'created', 'ticker', 'quantity', 'is_active', 'closed']

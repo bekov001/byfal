@@ -45,6 +45,18 @@ LANGUAGE_CHOICES = sorted([(item[1][0], item[0]) for item in LEXERS])
 STYLE_CHOICES = sorted([(item, item) for item in get_all_styles()])
 
 
+class Order(models.Model):
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='orders', on_delete=models.CASCADE)
+    created = models.DateTimeField(auto_now_add=True)
+    ticker = models.CharField(max_length=20, blank=True, default='')
+    quantity_usdt = models.IntegerField()
+    is_active = models.BooleanField(default=True)
+    closed = models.DateTimeField(blank=True)
+
+    class Meta:
+        ordering = ['created']
+
+
 class Snippet(models.Model):
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='snippets', on_delete=models.CASCADE, null=True)
     # highlighted = models.TextField(default='')
@@ -67,7 +79,6 @@ class Snippet(models.Model):
                                   full=True, **options)
         self.highlighted = highlight(self.code, lexer, formatter)
         super().save(*args, **kwargs)
-
 
     class Meta:
         ordering = ['created']
