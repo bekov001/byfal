@@ -26,7 +26,7 @@ function TokenChart(){
             if (document.getElementById('tradingview_ad52b') && 'TradingView' in window) {
               new window.TradingView.widget({
                 autosize: true,
-                symbol: "BINANCE:BTCUSDT",
+                symbol: "BINANCE:BTCUSDT.P",
                 interval: "5",
                 timezone: "Etc/UTC",
                 theme: "dark",
