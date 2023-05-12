@@ -100,9 +100,10 @@ class OrderList(generics.ListCreateAPIView):
         serializer.save(owner=self.request.user)
 
 
-class RegisterView(CreateAPIView):
-    from django.contrib.auth import get_user_model
-    User = get_user_model()
-    queryset = User.objects.all()
-    permission_classes = (AllowAny,)
+class OrderCreate(CreateAPIView):
+    queryset = Order.objects.all()
     serializer_class = OrderSerializer
+    permission_classes = [AllowAny]
+    #
+    # def perform_create(self, serializer):
+    #     serializer.save(owner=self.request.user)

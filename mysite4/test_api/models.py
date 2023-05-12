@@ -51,7 +51,7 @@ class Order(models.Model):
     ticker = models.CharField(max_length=20, blank=True, default='')
     quantity_usdt = models.IntegerField()
     is_active = models.BooleanField(default=True)
-    closed = models.DateTimeField(blank=True)
+    closed = models.DateTimeField(blank=True, null=True)
 
     class Meta:
         ordering = ['created']

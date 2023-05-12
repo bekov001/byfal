@@ -9,7 +9,8 @@ from . import views
 urlpatterns = [
     path('snippets/', views.SnippetList.as_view()),
     path('snippets/<int:pk>/', views.SnippetDetail.as_view()),
-    path('orders/', views.OrderList.as_view())
+    path('orders/', views.OrderList.as_view()),
+    path('create-order/', views.OrderCreate.as_view())
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

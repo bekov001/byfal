@@ -33,4 +33,4 @@ class OrderSerializer(serializers.ModelSerializer):
         model = Order
         owner = serializers.ReadOnlyField(source='owner.username')
 
-        fields = ['id', 'created', 'ticker', 'quantity', 'is_active', 'closed']
+        fields = ['id', 'created', 'ticker', 'quantity_usdt', 'is_active', 'closed']
