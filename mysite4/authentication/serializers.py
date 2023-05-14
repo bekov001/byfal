@@ -9,16 +9,39 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 
-class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
-    @classmethod
-    def get_token(cls, user):
-        token = super().get_token(user)
+class UserSerializer(serializers.ModelSerializer):
+    # snippets = serializers.PrimaryKeyRelatedField(many=True, queryset=Snippet.objects.all())
 
-        # Add custom claims
-        token['username'] = user.username
-        # ...
+    class Meta:
+        model = User
+        fields = ['id', 'username']
 
-        return token
+
+# class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
+#     # username_field = User.EMAIL_FIELD
+#     @classmethod
+#     def get_token(cls, user):
+#         token = super().get_token(user)
+#
+#         # Add custom claims
+#         token['username'] = user.username
+#         # ...
+#
+#         return token
+#
+#     # def get_fields(self):
+#     #     pass
+
+
+# class LoginUserSerializer(serializers.Serializer):
+#     email = serializers.EmailField()
+#     phone_number = serializers.CharField()
+#     password = serializers.CharField(write_only=True)
+
+
+class LoginUserSerializer(serializers.Serializer):
+    login = serializers.CharField()
+    password = serializers.CharField(write_only=True)
 
 
 class RegisterSerializer(serializers.ModelSerializer):
