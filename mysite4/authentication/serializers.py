@@ -71,6 +71,8 @@ class RegisterSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError({"password": "Password fields didn't match."})
         if not attrs.get('email', None) and not attrs.get('phone_number', None):
             raise serializers.ValidationError({"email": "empty login"})
+        if User.objects.filter(email=attrs.get('email', None)).exists() or User.objects.filter(email=attrs.get('phone_number', None)).exists():
+            raise serializers.ValidationError({"email or phone_number": "not unique"})
         return attrs
 
     def create(self, validated_data):
