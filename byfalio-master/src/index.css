@@ -4406,3 +4406,10 @@ line-height: 16px;
         height: 295px;
     }
 }
+
+
+.login-page {
+    width: 360px;
+    padding: 8% 0 0;
+    margin: auto;
+  }

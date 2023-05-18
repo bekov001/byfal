@@ -1,12 +1,30 @@
+import { Link } from "react-router-dom";
+import { useEffect, useState, useContext} from "react";
+import AuthContext from "../../shared/AuthContext";
+
+
 function Header({handleNotificationShow}){
+
+    const [isAuth, setIsAuth] = useState(false);
+    useEffect(() => {
+     if (localStorage.getItem('access_token') !== null) {
+        setIsAuth(true); 
+      }
+    }, [isAuth]);
+
+    const { user } = useContext(AuthContext);
+
     return (
         <header>
             <div className="logo">
-                <img src="img/logo.svg" alt=""/>
+                <Link to='/'><img src="img/logo.svg" alt=""/></Link>
+            
             </div>
-            <div className="btn_add_balance">
+
+            {user && (<div className="btn_add_balance">
                 Пополнить баланс
-            </div>
+            </div>)}
+            
             <div className="overview_active">
                 <div className="overview_active_text">
                     Обзор активов
@@ -23,7 +41,7 @@ function Header({handleNotificationShow}){
             </div>
             <div className="header_btns">
                 <div className="hbp header_btn_profile">
-                    <img className="hbp_btn" src="img/profile.svg" alt=""/>
+                    <Link to="/account"><img className="hbp_btn" src="img/profile.svg" alt=""/></Link>  
                 </div>
                 <div className="hbp header_btn_notice" onClick={handleNotificationShow}>
                     <img className="hbp_btn" src="img/notice.svg" alt=""/>

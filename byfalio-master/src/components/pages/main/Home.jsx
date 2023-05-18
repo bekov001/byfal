@@ -53,6 +53,28 @@ function Home(props) {
 
     const {total_sell, orders} = props;
 
+
+    
+    // const [message, setMessage] = useState('');
+    //  useEffect(() => {
+    //     if(localStorage.getItem('access_token') === null){                   
+    //         window.location.href = '/account'
+    //     }
+    //     else{
+    //      (async () => {
+    //        try {
+    //          const {data} = await axios.get(   
+    //                         'http://localhost:8000/home/', {
+    //                          headers: {
+    //                             'Content-Type': 'application/json'
+    //                          }}
+    //                        );
+    //          setMessage(data.message);
+    //       } catch (e) {
+    //         console.log('not auth')
+    //       }
+    //      })()};
+    //  }, []);
     
 
 
@@ -71,9 +93,9 @@ function Home(props) {
 
 
   return (
-   
-    <div className="wrap">
 
+    <div className="wrap">
+     
         <Header handleNotificationShow={handleNotificationShow}></Header>
         <div className="main">
             <Sidebar></Sidebar>
