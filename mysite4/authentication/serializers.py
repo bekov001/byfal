@@ -67,11 +67,12 @@ class RegisterSerializer(serializers.ModelSerializer):
         # }
 
     def validate(self, attrs):
+        # print(attrs['phone_number'])
         if attrs['password'] != attrs['password2']:
             raise serializers.ValidationError({"password": "Password fields didn't match."})
         if not attrs.get('email', None) and not attrs.get('phone_number', None):
             raise serializers.ValidationError({"email": "empty login"})
-        if User.objects.filter(email=attrs.get('email', None)).exists() or User.objects.filter(email=attrs.get('phone_number', None)).exists():
+        if User.objects.filter(email=attrs.get('email', False)).exists() or User.objects.filter(phone_number=attrs.get('phone_number', False)).exists():
             raise serializers.ValidationError({"email or phone_number": "not unique"})
         return attrs
 

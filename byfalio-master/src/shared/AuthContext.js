@@ -9,7 +9,7 @@ export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState(() => {
     if (localStorage.getItem("tokens")) {
       let tokens = JSON.parse(localStorage.getItem("tokens"));
-      return jwt_decode(tokens.access);
+      return jwt_decode(tokens.access_token);
     }
     return null;
   });
@@ -22,15 +22,51 @@ export const AuthContextProvider = ({ children }) => {
       payload
     );
     console.log(apiResponse.data);
-    if (apiResponse.data.access){
+    if (apiResponse.data.access_token){
         localStorage.setItem("tokens",  JSON.stringify(apiResponse.data));
-        setUser(jwt_decode(apiResponse.data.access));
+        setUser(jwt_decode(apiResponse.data.access_token));
         navigate("/");
     }
     
   };
+
+
+  const register = async (payload) => {
+    const apiResponse = await axios.post(
+      "http://localhost:8000/api/register/",
+      payload
+    ).then(response => {
+      let loginData = {
+        login: payload["email"] != null ? payload["email"] : payload["phone_number"],
+        password: payload.password
+      }
+      login(loginData)
+    }).catch(error => {
+      return error.response
+    });
+    // console.log(apiResponse.data);
+    // if (apiResponse.data.email && apiResponse.data.phone_number){
+    //     // localStorage.setItem("tokens",  JSON.stringify(apiResponse.data));
+    //     // setUser(jwt_decode(apiResponse.data.access_token));
+    //     // navigate("/");
+    // }
+    // else {
+    //   return {'error': apiResponse.data}
+    // }
+    return apiResponse;
+    
+  };
+
+  const logout = async () => {
+    // invoke the logout API call, for our NestJS API no logout API
+ 
+    localStorage.removeItem("tokens");
+    setUser(null);
+    navigate("/");
+  };
+
   return (
-    <AuthContext.Provider value={{ user, login }}>
+    <AuthContext.Provider value={{ user, login, logout, register }}>
       {children}
     </AuthContext.Provider>
   );

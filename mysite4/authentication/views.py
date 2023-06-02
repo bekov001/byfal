@@ -10,15 +10,15 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.views import TokenObtainPairView
 from .serializers import UserSerializer, LoginUserSerializer
 from .serializers import RegisterSerializer
-from rest_framework.generics import CreateAPIView
+from rest_framework.generics import CreateAPIView, RetrieveAPIView, ListAPIView
 
 from django.contrib.auth import get_user_model, authenticate
 
 from additional.help import email_check
+from django.contrib.auth import get_user_model
 
 
 class RegisterView(CreateAPIView):
-    from django.contrib.auth import get_user_model
     User = get_user_model()
     queryset = User.objects.all()
     permission_classes = (AllowAny,)
@@ -32,13 +32,11 @@ class RegisterView(CreateAPIView):
 #     serializer_class = MyTokenObtainPairSerializer
 
 
-@api_view(["GET"])
-def get_users(request):
+class UserList(ListAPIView):
     User = get_user_model()
     queryset = User.objects.all()
-    # RegisterView.se
-    data = serializers.serialize("json", User.objects.all(), fields=["username", "email", "phone_number"])
-    return Response(data)
+    serializer_class = UserSerializer
+    permission_classes = (IsAuthenticated,)
 
 
 class LogoutView(APIView):
@@ -57,7 +55,7 @@ class LogoutView(APIView):
 class LoginUserView(APIView):
 
     serializer_class = LoginUserSerializer
-
+    permission_classes = (AllowAny, )
     def post(self, request):
         try:
             User = get_user_model()
@@ -75,15 +73,15 @@ class LoginUserView(APIView):
             # print(data)
             user = authenticate(username=username, password=request.data['password'])  # check for email and password
             if not user:
-                raise serializers.ValidationError({'detail': 'wrong login or password'})
+                return Response({'detail': 'wrong login or password'})
 
             # Generate Token
             refresh = RefreshToken.for_user(user)
 
             return Response(
                 {
-                    'access': str(refresh.access_token),
-                    'refresh': str(refresh)
+                    'access_token': str(refresh.access_token),
+                    'refresh_token': str(refresh)
                 }
                 )
         except KeyError:

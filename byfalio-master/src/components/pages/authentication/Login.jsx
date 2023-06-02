@@ -3,7 +3,6 @@ import Header from '../../layouts/Header'
 import LoginInput from '../../UI/button/LoginInput'
 import '../../pages/authentication/styles/login.css'
 import axios from 'axios'
-import AuthService  from '../../../services/auth.service'
 import { AuthContext } from '../../../shared/AuthContext'
 
 export const setAuthToken = token => {
@@ -26,70 +25,6 @@ export default function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-
-  // function submit(event) {
-  //   event.preventDefault();
-  //   let data = AuthService.login(username, password).then((res) => {
-  //       console.log(res);
-  //   }, error => console.log('123'))
-    
-    // .then(
-      // () => {
-      //   this.props.router.navigate("/profile");
-      //   window.location.reload();
-      // },
-      // error => {
-      //   // const resMessage =
-      //   //   (error.response &&
-      //   //     error.response.data &&
-      //   //     error.response.data.message) ||
-      //   //   error.message ||
-      //   //   error.toString();
-
-       
-      
-      //   const message = error;
-      //   console.log(message);
-       
-      // }
-    // );
- 
-  //   else {
-  //   this.setState({
-  //     loading: false
-  //   });
-  // }
-    // const user = {
-    //       login: username,
-    //       password: password
-    //      };
-    // // Create the POST requuest
-    // axios.post('http://localhost:8000/api/login/',
-    //                user, {
-    //                 headers: {'Content-Type': 'application/json'}
-    //               },
-    //                {withCredentials: true}).then((response) => {
-    //                 const data = response.data;
-    //                 localStorage.clear();
-    //                 localStorage.setItem('access_token', data.access);
-    //                 localStorage.setItem('refresh_token', data.refresh);
-    //                 // axios.defaults.headers.common['Authorization'] = 
-    //                 //                `Bearer ${data['access']}`;
-    //                 setAuthToken(data.access);
-    //                 // window.location.href = '/'
-    //                 console.log(data);
-    //                }
-                    
-
-                    
-  // //   console.log(data);
-  // //  // Initialize the access & refresh token in localstorage.      
-  // //  localStorage.clear();
-  // //  localStorage.setItem('access_token', data.access);
-  // //  localStorage.setItem('refresh_token', data.refresh);
-  // //  axios.defaults.headers.common['Authorization'] = 
-  // //                                  `Bearer ${data['access']}`;
-  // //  window.location.href = '/'
 
   const {login}= useContext(AuthContext)
  
@@ -120,7 +55,7 @@ export default function Login() {
                 required
                 onChange={event => setPassword(event.target.value)}/>
           <button type='submit' onClick={loginSubmit}>login</button>
-          <p className="message">Not registered? <a href="" onClick={h1}>Create an account </a></p>
+          <p className="message">Not registered? <a href="/register">Create an account </a></p>
           </form>
         </div>
            

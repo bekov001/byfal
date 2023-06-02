@@ -1,7 +1,7 @@
 import React,{useState} from 'react';
 import Select from "react-select";
 
-function TokenBuy(){
+function TokenBuy({openPos}){
     const [priceOrder, setPriceOrder] = useState(28160);
     const priceOrderChange = event => {
         setPriceOrder(event.target.value);
@@ -80,7 +80,15 @@ function TokenBuy(){
         setPriceCount(event.target.value);
       };
 
+      function openLong(event){
+        event.preventDefault()
+        const position = {
+            id: Date.now(),
+            type: 'LONG'
 
+        }
+        openPos(position)
+      }
 
     return (
         <div className="token_buy">
@@ -145,7 +153,7 @@ function TokenBuy(){
             </div>
         </div>
         <div className="token_buy_btns_w">
-            <div className="token_buy_btn_w token_buy_btn_long">
+            <div className="token_buy_btn_w token_buy_btn_long" onClick={(e) => openLong(e)}>
                 <img src="img/arrow_up.svg" alt=""/>
                 <span>Long</span>
             </div>

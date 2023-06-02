@@ -3,7 +3,8 @@ import TradeHistory from "../modals/TradeHistory/TradeHistory";
 import LeadersTable from "../modals/LeadersTable/LeadersTable";
 
 import React, { useState} from 'react';
-
+import Profile from "../pages/authentication/profile/Profile";
+import { Link } from "react-router-dom";
 function Sidebar(){
 
     const [menuLinkId, setMenuLinkId] = useState(4); 
@@ -20,6 +21,13 @@ function Sidebar(){
         e.preventDefault();
         setMenuLinkId(2);
         setTradeHistoryShow(true);
+    }
+
+    const handleProfile = (e) => {
+
+        e.preventDefault();
+        setMenuLinkId(1);
+
     }
 
     const handleTradeHistoryClose = () => {
@@ -68,8 +76,11 @@ function Sidebar(){
         <div className="sidebar_menu_links">
         {menuLinkId!=4 ? <div className='trade_modal_filter'></div> : ""}   
         {/* <div className={menuLinkId!=4 ? "trade_modal_filter" : ""}></div> */}
+
             <div className="sidebar_menu_link tables_hidden">
+                
                 <a href="">
+                <Link to="/profile">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <g clipPath="url(#clip0_302_1300)">
                         <path d="M15 6.5C14.448 6.5 14 6.052 14 5.5V4H10V5.5C10 6.052 9.552 6.5 9 6.5C8.448 6.5 8 6.052 8 5.5V4C8 2.897 8.897 2 10 2H14C15.103 2 16 2.897 16 4V5.5C16 6.052 15.552 6.5 15 6.5Z" fill="#ACACB8"/>
@@ -84,7 +95,9 @@ function Sidebar(){
                         </svg>
 
                     <span>Профиль</span>
+                    </Link>
                 </a>
+               
             </div>
             <div className={menuLinkId==2 ? "sidebar_menu_link menu_link_active" : "sidebar_menu_link"}>
                 <div className="border_active"></div>
@@ -114,15 +127,25 @@ function Sidebar(){
                 </a>
             </div>
             <div className={menuLinkId==4 ? "sidebar_menu_link menu_link_active trade_room_link" : "sidebar_menu_link trade_room_link"}>
-            <div className="border_active"></div>
-                <a onClick={handleTradeRoomShow}  href="">
-                    <svg width="32" height="35" viewBox="0 0 32 35" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M4.44998 30.24H10.225V18.9H21.775V30.24H27.55V13.23L16 4.725L4.44998 13.23V30.24ZM0.599976 34.02V11.34L16 0L31.4 11.34V34.02H17.925V22.68H14.075V34.02H0.599976Z" fill="#90919B"/>
-                        </svg>
+           
+            
+                <div className="border_active">
+                    
+                </div>
+                
+                    <a onClick={handleTradeRoomShow}  href="">
+                        <Link to="/register">
+                        <svg width="32" height="35" viewBox="0 0 32 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M4.44998 30.24H10.225V18.9H21.775V30.24H27.55V13.23L16 4.725L4.44998 13.23V30.24ZM0.599976 34.02V11.34L16 0L31.4 11.34V34.02H17.925V22.68H14.075V34.02H0.599976Z" fill="#90919B"/>
+                            </svg>
 
-                    <span>Trade room</span>
-                </a>
-            </div>
+                        <span>Trade room</span>
+                        </Link>
+                    </a>
+                    
+                </div>
+           
+          
             <div className={menuLinkId==5 ? "sidebar_menu_link menu_link_active" : "sidebar_menu_link"} >
             <div className="border_active"></div>
                 <a onClick={handleLeadersShow} href="">

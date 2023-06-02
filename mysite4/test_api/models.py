@@ -46,7 +46,7 @@ STYLE_CHOICES = sorted([(item, item) for item in get_all_styles()])
 
 
 class Order(models.Model):
-    owner = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='orders', on_delete=models.CASCADE)
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='old_versiob', on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
     ticker = models.CharField(max_length=20, blank=True, default='')
     quantity_usdt = models.IntegerField()

@@ -100,10 +100,10 @@ class OrderList(generics.ListCreateAPIView):
         serializer.save(owner=self.request.user)
 
 
-class OrderCreate(CreateAPIView):
-    queryset = Order.objects.all()
-    serializer_class = OrderSerializer
-    permission_classes = [AllowAny]
+# class OrderCreate(CreateAPIView):
+#     queryset = Order.objects.all()
+#     serializer_class = OrderSerializer
+#     permission_classes = [permissions.isAuthenticated]
     #
     # def perform_create(self, serializer):
     #     serializer.save(owner=self.request.user)

@@ -1,4 +1,4 @@
-function TokenHeader({handleTokenSearchShow,tokenSearchShow,handleTokenSearchClose}){
+function TokenHeader({handleTokenSearchShow,tokenSearchShow,handleTokenSearchClose, tokenPrice, tickerData, fundRate}){
     return (
         <div className="token_header">
         <div className="token_header_menu">
@@ -28,10 +28,10 @@ function TokenHeader({handleTokenSearchShow,tokenSearchShow,handleTokenSearchClo
                             <span>BTSUSDT</span>
                         </div>
                         <div className="token_search_modal_main_row_price">
-                            27,818.00
+                            {tokenPrice}
                         </div>
                         <div className="token_search_modal_main_row_price_change color_red">
-                            -1.89%
+                            {tickerData.priceChangePercent}
                         </div>
                         <div className="token_search_modal_main_row_supply">
                             578.92M(USD)
@@ -219,35 +219,35 @@ function TokenHeader({handleTokenSearchShow,tokenSearchShow,handleTokenSearchClo
                     </div>
                 </div> 
                 <div className="token_header_stat tables_show">
-                    <h5 className="tables_show">28,490.40</h5>
+                    <h5 className="tables_show">{tokenPrice}</h5>
                     <p className="color_green">+1,79%</p>
                 </div>
             </div>
         </div>
         <div className="token_header_price tables_hidden">
-            28,490.40
+            {tokenPrice}
         </div>
 
         <div className="token_header_stat tables_hidden">
             <span className="">Изменение за 24ч</span>
-            <p className="color_green">+1,79%</p>
+            <p className="color_green"> {tickerData.priceChangePercent}%</p>
         </div>
         <div className="token_header_stat tables_hidden">
             <span>Максимум за 24ч</span>
-            <p>28,797.10%</p>
+            <p>{tickerData.highPrice}</p>
         </div>
         <div className="token_header_stat tables_hidden">
             <span>Минимум за 24ч</span>
-            <p>28,797.10%</p>
+            <p>{tickerData.lowPrice}</p>
         </div>
         <div className="token_header_stat tables_hidden">
-            <span>Оборот за 24ч(USTD)</span>
-            <p>4,037,520,396.56%</p>
+            <span>Оборот за 24ч (BTC)</span>
+            <p>{tickerData.volume}</p>
         </div>
         <div className="token_header_stat tables_hidden">
             <span>Ставка / Отсчет</span>
             <div className="row">
-                <p className="color_red">-0.0100% </p>
+                <p className="color_red">{fundRate.fundingRate}% </p>
                 <p>/ 07:47:58</p>
             </div>
         </div>
